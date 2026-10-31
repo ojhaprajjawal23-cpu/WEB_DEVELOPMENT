@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: rgb(66, 16, 16);
+        }
+
+        h2 {
+            text-align: center;
+            padding: 15px;
+            background: rgb(172, 118, 76);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: rgb(176, 88, 21);
+            color: white;
+        }
+
+        .total td {
+            font-weight: bold;
+            background: rgb(172, 118, 76);
+        }
+
+        button {
+            background: rgb(176, 88, 21);
+            color: white;
+            border: 1px solid rgb(66, 16, 16);
+            padding: 8px 12px;
+            margin: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Your Cart</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Book name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody id="cartBody"></tbody>
+    </table>
+
+    <button onclick="clearCart()">Clear cart</button>
+
+    <script>
+        function showCart() {
+            var cart = JSON.parse(localStorage.getItem("cart")) || [];
+            var body = document.getElementById("cartBody");
+            var total = 0;
+            var html = "";
+
+            if (cart.length === 0) {
+                body.innerHTML = '<tr><td colspan="4">Your cart is empty.</td></tr>';
+                return;
+            }
+
+            for (var i = 0; i < cart.length; i++) {
+                var amount = cart[i].price * cart[i].qty;
+                total += amount;
+
+                html += "<tr>" +
+                    "<td>" + cart[i].name + "</td>" +
+                    "<td>$" + cart[i].price + "</td>" +
+                    "<td>" + cart[i].qty + "</td>" +
+                    "<td>$" + amount + "</td>" +
+                    "</tr>";
+            }
+
+            html += '<tr class="total">' +
+                '<td colspan="3">Total amount</td>' +
+                "<td>$" + total + "</td>" +
+                "</tr>";
+
+            body.innerHTML = html;
+        }
+
+        function clearCart() {
+            localStorage.removeItem("cart");
+            showCart();
+        }
+
+        showCart();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EEE Books</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            font-family: Arial;
+            color: rgb(66, 16, 16);
+        }
+
+        h2 {
+            text-align: center;
+            padding: 15px;
+            background: rgb(172, 118, 76);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: rgb(176, 88, 21);
+            color: white;
+        }
+
+        img {
+            width: 65px;
+            height: 85px;
+        }
+
+        button {
+            background: rgb(176, 88, 21);
+            color: white;
+            padding: 7px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>EEE Books Catalogue</h2>
+
+    <table>
+        <tr>
+            <th>Cover</th>
+            <th>Book Details</th>
+            <th>Price</th>
+            <th>Cart</th>
+        </tr>
+
+        <tr>
+            <td><img src="eee1.jpg" alt="Electrical Machinery"></td>
+            <td>
+                Book: Electrical Machinery<br><br>
+                Author: P. S. Bimbhra<br><br>
+                Publisher: Khanna Publishers
+            </td>
+            <td>$45</td>
+            <td>
+                <button onclick="addCart('Electrical Machinery')">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="eee2.jpg" alt="Power Systems"></td>
+            <td>
+                Book: Power System Engineering<br><br>
+                Author: Nagrath and Kothari<br><br>
+                Publisher: McGraw Hill
+            </td>
+            <td>$55</td>
+            <td>
+                <button onclick="addCart('Power System Engineering')">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="eee3.jpg" alt="Electrical Circuits"></td>
+            <td>
+                Book: Electric Circuits<br><br>
+                Author: James Nilsson<br><br>
+                Publisher: Pearson
+            </td>
+            <td>$40</td>
+            <td>
+                <button onclick="addCart('Electric Circuits')">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+    function addCart(book, price) {
+        // if the price is not passed, read it from the "$..." cell in the same row
+        if (price === undefined) {
+            var cells = event.target.closest("tr").querySelectorAll("td");
+            for (var i = 0; i < cells.length; i++) {
+                var text = cells[i].textContent.trim();
+                if (text.charAt(0) === "$") {
+                    price = parseFloat(text.substring(1));
+                    break;
+                }
+            }
+        }
+
+        var cart = JSON.parse(localStorage.getItem("cart")) || [];
+        var found = false;
+
+        for (var j = 0; j < cart.length; j++) {
+            if (cart[j].name === book) {
+                cart[j].qty += 1;
+                found = true;
+            }
+        }
+
+        if (!found) {
+            cart.push({ name: book, price: price, qty: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(book + " added to cart!");
+    }
+    </script>
+
+</body>
+</html>

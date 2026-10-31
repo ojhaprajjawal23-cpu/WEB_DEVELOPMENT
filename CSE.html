@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSE Books</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            font-family: Arial;
+            color: rgb(66, 16, 16);
+        }
+
+        h2 {
+            text-align: center;
+            padding: 15px;
+            background: rgb(172, 118, 76);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: rgb(176, 88, 21);
+            color: white;
+        }
+
+        img {
+            width: 70px;
+            height: 90px;
+        }
+
+        button {
+            background: rgb(176, 88, 21);
+            color: white;
+            padding: 7px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: rgb(66, 16, 16);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>CSE Books Catalogue</h2>
+
+    <table>
+        <tr>
+            <th>Cover Page</th>
+            <th>Book Details</th>
+            <th>Price</th>
+            <th>Add to Cart</th>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="xml.jpg" alt="XML Bible">
+            </td>
+            <td>
+                Book: XML Bible<br><br>
+                Author: Winston<br><br>
+                Publisher: Wiley
+            </td>
+            <td>$40.5</td>
+            <td>
+                <button onclick="addCart('XML Bible')">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="ai.jpg" alt="Artificial Intelligence">
+            </td>
+            <td>
+                Book: Artificial Intelligence<br><br>
+                Author: S. Russell<br><br>
+                Publisher: Prentice Hall
+            </td>
+            <td>$63</td>
+            <td>
+                <button onclick="addCart('Artificial Intelligence')">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="java.jpg" alt="Java 2">
+            </td>
+            <td>
+                Book: Java 2<br><br>
+                Author: Watson<br><br>
+                Publisher: BPB Publications
+            </td>
+            <td>$35.5</td>
+            <td>
+                <button onclick="addCart('Java 2')">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="html.jpg" alt="HTML in 24 Hours">
+            </td>
+            <td>
+                Book: HTML in 24 Hours<br><br>
+                Author: Sam Peter<br><br>
+                Publisher: Sam Publications
+            </td>
+            <td>$50</td>
+            <td>
+                <button onclick="addCart('HTML in 24 Hours')">
+                    Add to Cart
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+    function addCart(book, price) {
+        // if the price is not passed, read it from the "$..." cell in the same row
+        if (price === undefined) {
+            var cells = event.target.closest("tr").querySelectorAll("td");
+            for (var i = 0; i < cells.length; i++) {
+                var text = cells[i].textContent.trim();
+                if (text.charAt(0) === "$") {
+                    price = parseFloat(text.substring(1));
+                    break;
+                }
+            }
+        }
+
+        var cart = JSON.parse(localStorage.getItem("cart")) || [];
+        var found = false;
+
+        for (var j = 0; j < cart.length; j++) {
+            if (cart[j].name === book) {
+                cart[j].qty += 1;
+                found = true;
+            }
+        }
+
+        if (!found) {
+            cart.push({ name: book, price: price, qty: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(book + " added to cart!");
+    }
+    </script>
+
+</body>
+</html>

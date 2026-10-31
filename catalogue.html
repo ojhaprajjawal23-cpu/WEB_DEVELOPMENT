@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Catalogue</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: rgb(66, 16, 16);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .header {
+            background-color: rgb(176, 88, 21);
+            color: rgb(43, 21, 21);
+            text-align: center;
+            height: 35px;
+        }
+
+        .menu {
+            background-color: rgb(172, 118, 76);
+            text-align: center;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: rgb(66, 16, 16);
+            font-weight: bold;
+        }
+
+        .book {
+            height: 110px;
+        }
+
+        .cover {
+            width: 100px;
+            text-align: center;
+        }
+
+        .cover img {
+            width: 75px;
+            height: 100px;
+        }
+
+        .details {
+            width: 35%;
+            line-height: 25px;
+        }
+
+        .price {
+            width: 12%;
+            text-align: center;
+        }
+
+        .cart {
+            text-align: center;
+            width: 20%;
+        }
+
+        button {
+            background-color: rgb(176, 88, 21);
+            color: white;
+            border: 1px solid rgb(66, 16, 16);
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(66, 16, 16);
+        }
+
+        #message {
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <tr class="header">
+            <td style="width: 10%;">Logo</td>
+            <td colspan="4">WebSite Name</td>
+        </tr>
+
+        <tr class="menu">
+            <td><a href="home.html" target="content">Home</a></td>
+            <td><a href="login.html" target="content">Login</a></td>
+            <td><a href="registration.html" target="content">Registration</a></td>
+            <td><a href="catalogue.html" target="content">Catalogue</a></td>
+            <td><a href="cart.html" target="content">Cart</a></td>
+        </tr>
+
+        <!-- Book 1 -->
+        <tr class="book">
+            <td class="cover">
+                <img src="xml.jpg" alt="XML Bible">
+            </td>
+
+            <td class="details">
+                Book: XML Bible<br>
+                Author: Winston<br>
+                Publication: Wiley
+            </td>
+
+            <td class="price">$40.5</td>
+
+            <td class="cart">
+                <button onclick="addCart('XML Bible', 40.5)">
+                    Add to cart
+                </button>
+            </td>
+        </tr>
+
+        <!-- Book 2 -->
+        <tr class="book">
+            <td class="cover">
+                <img src="ai.jpg" alt="Artificial Intelligence">
+            </td>
+
+            <td class="details">
+                Book: AI<br>
+                Author: S. Russel<br>
+                Publication: Princetohall
+            </td>
+
+            <td class="price">$63</td>
+
+            <td class="cart">
+                <button onclick="addCart('AI', 63)">
+                    Add to cart
+                </button>
+            </td>
+        </tr>
+
+        <!-- Book 3 -->
+        <tr class="book">
+            <td class="cover">
+                <img src="java.jpg" alt="Java 2">
+            </td>
+
+            <td class="details">
+                Book: Java 2<br>
+                Author: Watson<br>
+                Publication: BPB Publications
+            </td>
+
+            <td class="price">$35.5</td>
+
+            <td class="cart">
+                <button onclick="addCart('Java 2', 35.5)">
+                    Add to cart
+                </button>
+            </td>
+        </tr>
+
+        <!-- Book 4 -->
+        <tr class="book">
+            <td class="cover">
+                <img src="html.jpg" alt="HTML in 24 Hours">
+            </td>
+
+            <td class="details">
+                Book: HTML in 24 Hours<br>
+                Author: Sam Peter<br>
+                Publication: Sam Publication
+            </td>
+
+            <td class="price">$50</td>
+
+            <td class="cart">
+                <button onclick="addCart('HTML in 24 Hours', 50)">
+                    Add to cart
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <p id="message"></p>
+
+    <script>
+    function addCart(book, price) {
+        // if the price is not passed, read it from the "$..." cell in the same row
+        if (price === undefined) {
+            var cells = event.target.closest("tr").querySelectorAll("td");
+            for (var i = 0; i < cells.length; i++) {
+                var text = cells[i].textContent.trim();
+                if (text.charAt(0) === "$") {
+                    price = parseFloat(text.substring(1));
+                    break;
+                }
+            }
+        }
+
+        var cart = JSON.parse(localStorage.getItem("cart")) || [];
+        var found = false;
+
+        for (var j = 0; j < cart.length; j++) {
+            if (cart[j].name === book) {
+                cart[j].qty += 1;
+                found = true;
+            }
+        }
+
+        if (!found) {
+            cart.push({ name: book, price: price, qty: 1 });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        document.getElementById("message").innerHTML = book + " added to cart! Price: $" + price;
+    }
+    </script>
+
+</body>
+</html>

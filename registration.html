@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            background-color: rgb(245, 243, 241);
+            font-family: Arial, sans-serif;
+            color: rgb(66, 16, 16);
+        }
+
+        h2 {
+            background-color: rgb(176, 88, 21);
+            color: rgb(43, 21, 21);
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 8px 12px;
+            vertical-align: top;
+        }
+
+        td.label {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 250px;
+            padding: 6px;
+            border: 1px solid rgb(66, 16, 16);
+            background-color: white;
+        }
+
+        select {
+            padding: 6px;
+            border: 1px solid rgb(66, 16, 16);
+            background-color: white;
+        }
+
+        button {
+            padding: 8px 20px;
+            margin: 10px;
+            background-color: rgb(176, 88, 21);
+            color: rgb(43, 21, 21);
+            border: 1px solid rgb(66, 16, 16);
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: rgb(66, 16, 16);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Registration Page</h2>
+
+    <form onsubmit="return validate()"></form>
+        <table>
+            <!-- 1. Name -->
+            <tr>
+                <td class="label">Name:</td>
+                <td><input type="text" name="name" required id = "name"></td>
+            </tr>
+
+            <!-- 2. Password -->
+            <tr>
+                <td class="label">Password:</td>
+                <td><input type="password" name="password" required id = "password"></td>
+            </tr>
+
+            <!-- 3. E-mail id -->
+            <tr>
+                <td class="label">E-mail id:</td>
+                <td><input type="text" name="email" id = "email"></td>
+            </tr>
+
+            <!-- 4. Phone number -->
+            <tr>
+                <td class="label">Phone Number:</td>
+                <td><input type="text" name="phone" id = "phone"></td>
+            </tr>
+
+            <!-- 5. Sex -->
+            <tr>
+                <td class="label">Sex:</td>
+                <td>
+                    <input type="radio" name="sex" value="Male" id="male">
+                    <label for="male">Male</label>
+
+                    <input type="radio" name="sex" value="Female" id="female">
+                    <label for="female">Female</label>
+
+                    <input type="radio" name="sex" value="Other" id="other">
+                    <label for="other">Other</label>
+                </td>
+            </tr>
+
+            <!-- 6. Date of birth -->
+            <tr>
+                <td class="label">Date of Birth:</td>
+                <td>
+                    <select name="day" id="day">
+                        <option value="">Day</option>
+                    </select>
+
+                    <select name="month" id="month">
+                        <option value="">Month</option>
+                    </select>
+
+                    <select name="year" id="year">
+                        <option value="">Year</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!-- 7. Languages known -->
+            <tr>
+                <td class="label">Languages Known:</td>
+                <td>
+                    <input type="checkbox" name="lang" value="English" id="english">
+                    <label for="english">English</label><br>
+
+                    <input type="checkbox" name="lang" value="Telugu" id="telugu">
+                    <label for="telugu">Telugu</label><br>
+
+                    <input type="checkbox" name="lang" value="Hindi" id="hindi">
+                    <label for="hindi">Hindi</label><br>
+
+                    <input type="checkbox" name="lang" value="Tamil" id="tamil">
+                    <label for="tamil">Tamil</label>
+                </td>
+            </tr>
+
+            <!-- 8. Address -->
+            <tr>
+                <td class="label">Address:</td>
+                <td><textarea name="address" rows="4"></textarea></td>
+            </tr>
+
+            <!-- Buttons -->
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">Submit</button>
+                    <button type="reset">Reset</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        // fills the three date-of-birth select boxes
+        var day = document.getElementById("day");
+        for (var d = 1; d <= 31; d++) {
+            day.innerHTML += '<option value="' + d + '">' + d + "</option>";
+        }
+
+        var months = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"];
+        var month = document.getElementById("month");
+        for (var m = 0; m < 12; m++) {
+            month.innerHTML += '<option value="' + (m + 1) + '">' + months[m] + "</option>";
+        }
+
+        var year = document.getElementById("year");
+        for (var y = 2026; y >= 1950; y--) {
+            year.innerHTML += '<option value="' + y + '">' + y + "</option>";
+        }
+    </script>
+    <script src="validation.js"></script>
+</body>
+</html>

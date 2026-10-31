@@ -10,22 +10,29 @@
             margin: 0px;
             padding: 0px;
         }
-        .header{
+                .header{
             background: rgb(176, 88, 21);
             color :rgb(43, 21, 21);
             height : 80px;
             font-size: 30px;
             display: flex;
             align-items: center;
+            position: relative;
+        }
+        .logo{
+            position: absolute;
+            left: 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
         }
         .logo img{
-            width: 21%;
-            height : 21%;
-            text-align: center;
+            height: 70px;
+            width: auto;
         }
         .title{
             font-weight: bold;
-            flex :1;
+            width: 100%;
             text-align: center;
         }
         .menu{
@@ -75,16 +82,16 @@
         <div class = "logo" >
             <img  src ="logo.jpg" alt = "logo">
         </div>
-        <div class = "title">Website Name</div>
+        <div class = "title">Online Bookstore</div>
     </div>
     <div class = "menu">
        <a href="home.html" target = "content">Home</a>
-       <a href="">Login</a>
-       <a href="">Registration</a>
-       <a href="">Catalogue</a>
-       <a href="">Cart</a>
+       <a href="login.html" target = "content">Login</a>
+       <a href="registration.html" target = "content">Registration</a>
+       <a href="catalogue.html" target = "content">Catalogue</a>
+       <a href="cart.html" target = "content">Cart</a>
     </div>
-   <div class = "main">
+   <div class = "main">     
         <div class = "left">
             <a href = "CSE.html"  target="content">CSE</a>
             <a href = "ECE.html"  target="content">ECE</a>
@@ -96,4 +103,3 @@
         </div>
    </div>
 </body>
-</html>
